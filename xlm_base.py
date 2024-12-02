@@ -18,7 +18,7 @@ import argparse # Step 1: Import the argparse module
 
 ####### PREPARE PATHs VARAIBLES #########
 # # the only iteratable subset number, there are 15 subsets in total
-base_dir= "/data/scro4316/thesis/paper3/xml-t-base-english"
+base_dir= "/xml-t-base-english"
 # experiment_dir = "3_1_"
 # subset_dir = "english"
 model_trained_dir = "_best_model"
@@ -47,7 +47,7 @@ MODEL = "cardiffnlp/twitter-xlm-roberta-base" # use this to finetune the languag
 MAX_TRAINING_EXAMPLES = -1 # set this to -1 if you want to use the whole training set 
 
 ##### load annotated English data where dropping non-moral category, remember to reset the index, from the merged_corp #####
-dataset = pd.read_csv('/data/scro4316/thesis/paper3/e_tools_lm/data/mf_corpora_merged.csv', index_col=0)
+dataset = pd.read_csv('/e_tools_lm/data/mf_corpora_merged.csv', index_col=0)
 # double check and make sure all data text are strings, no nan values
 mask = dataset['sentence'].apply(lambda x: isinstance(x, str)) 
 dataset = dataset[mask]
@@ -136,13 +136,13 @@ os.environ["CUDA_VISIBLE_DEVICES"] = gpu # Use GPU 2
 
 # set the training Arguments:
 training_args = TrainingArguments(
-    output_dir='/data/scro4316/thesis/paper3/xml-t-base-english/3_1_results',                   # output directory
+    output_dir='/xml-t-base-english/3_1_results',                   # output directory
     num_train_epochs=EPOCHS,                  # total number of training epochs
     per_device_train_batch_size=BATCH_SIZE,   # batch size per device during training
     per_device_eval_batch_size=BATCH_SIZE,    # batch size for evaluation
     warmup_steps=100,                         # number of warmup steps for learning rate scheduler
     weight_decay=0.01,                        # strength of weight decay
-    logging_dir='/data/scro4316/thesis/paper3/xml-t-base-english/3_1_logs',                     # directory for storing logs
+    logging_dir='/xml-t-base-english/3_1_logs',                     # directory for storing logs
     logging_steps=10,                         # when to print log
     evaluation_strategy="steps",
     save_strategy="steps",     
@@ -167,7 +167,7 @@ trainer = Trainer(
 # 44k training documents, one A100 GPU, RoBERTa-base model, batch size 16, number of epochs 3
 trainer.train()
 
-trainer.save_model(f"/data/scro4316/thesis/paper3/e_tools_lm/finetune_xml/en_base_{foundation}") # save best model 
+trainer.save_model(f"/e_tools_lm/finetune_xml/en_base_{foundation}") # save best model 
 print("The model has been successfully saved")
 
 
