@@ -24,16 +24,35 @@ This is the repository for the paper "Evaluating Automated Approaches to Measure
     - Twitter - TweetID are shared on [OSF](https://osf.io/k5n7y/), but for the full tweet content, please [contact the authors](https://journals.sagepub.com/doi/10.1177/1948550619876629) given the current Twitter API restrictions. 
     - English News - can be downloaded from [OSF](https://osf.io/52qfe)
 
-## Code
+## Methods
+_NOTE_. All codes here we removed the `path` information for privacy reasons. Please be extra cautious when running the code and change it accordingly.
 
-### Machine Translation
-see code in `e-mt.ipynb` 
+### Machine Translation Approach
+see code in `e_mt.ipynb` 
 
-### Local Language Dictionary 
+### Local Language Dictionary Approach
 - C-MFD2, see code in `e_tool_lexicon.ipynb`. 
 - C-MFD2 with sentiment dimension info is saved in `customized.csv`, so it can be used with `FrameAxis` pacakge.
 - to make the CMFD2.0 dictionary compatible with `FrameAxis`, revise code in the `FrameAxis` pacakge accordingly (for example, `frameAxis_cmfd2.py` and `frameaxis_main_cmfd2.py`). 
 
+### Multilingual Language Model Approach
+see code in `e_tools_lm.ipynb` for data analysis; `xlm_base.py` and `xlm_model_infer.py` files for model fine-tuning and inference.
 
+### LLMs Llama3.1-8b-instruct 
 
+see code in `e_tool_llms.ipynb` for data analysis; `llama_ft.py` and `llama_inference.py` files for sample model fine-tuning and inference.
 
+Why choose Llama3.1 as the representation LLM for this task? The key reason is to set a conservative baseline for the llms approach. 
+
+As an LLM, `llama3.1` is not the best for cross-lingual tasks, because Llama3.1 does not technically support Chinese complex tasks. As stated in its [model card](https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md), the majority training data is English. officially claimed to support: English, German, French, Italian, Portuguese, Hindi, Spanish, and Thai. But, it performs pretty well on [multilingual leadering board](https://huggingface.co/microsoft/Phi-3.5-mini-instruct), though not as good as `gpt4o`. Llama 3 support Chinese though, however, [over 5% of the Llama 3 pretraining dataset consists of high-quality non-English data that covers over 30 languages. However, we do not expect the same level of performance in these languages as in English.](https://ai.meta.com/blog/meta-llama-3/). So, Chinese may not perform well in Llama3 either. There is only [limited language support](https://github.com/meta-llama/llama/issues/58) on Chinese, only 700 characters in the tokenizer. 
+
+Therefore, our hypothesis is, if `llama3.1` can perform well on this task, then it is a good sign that the llms approach is promising.
+
+We ran all llms relevant code on the remote server, with a single L40S GPU. English and Chinese training data are the same as fine-tuning XLM-T model. 
+
+For llms fine-tuning code, please see a base code in `llama_ft.py`, including prompts and fine-tuning details. Experiments on different models are different regarding the base model (llama3.1-8b, 70b; llama3.2-1b, 3b), prompt (Chinese or English) and training data (Chinese or English). Parameters and other variables remain the same.
+
+`llama_inference.py` is the code for inference, including the code for the evaluation of the model.
+
+## Results
+The `.ipynb` files contain most of the data analysis and visualization results for the paper. For detailed data/results for replication purposes, please contact the authors, and I am happy to share full paper data in `.csv` or `.json` files. 
