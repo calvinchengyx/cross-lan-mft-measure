@@ -38,7 +38,7 @@ see code in `e_mt.ipynb`
 ### Multilingual Language Model Approach
 see code in `e_tools_lm.ipynb` for data analysis; `xlm_base.py` and `xlm_model_infer.py` files for model fine-tuning and inference.
 
-### LLMs Llama3.1-8b-instruct 
+### LLMs Approach
 
 see code in `e_tool_llms.ipynb` for data analysis; `llama_ft.py` and `llama_inference.py` files for sample model fine-tuning and inference.
 
