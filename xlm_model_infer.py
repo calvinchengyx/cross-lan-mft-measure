@@ -38,7 +38,7 @@ tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-xlm-roberta-base")
 os.environ["CUDA_VISIBLE_DEVICES"] = gpu
 
 ######### load the test data ############
-df_test = pd.read_csv("/data/scro4316/thesis/paper3/benchmarkset_map_0917.csv")
+df_test = pd.read_csv("benchmarkset_map_0917.csv")
 
 test_encodings = tokenizer(df_test['text'].tolist(), truncation=True, max_length=512, padding='max_length')
 
@@ -64,9 +64,9 @@ trainer = Trainer(model=model) # the instantiated 🤗 Transformers model to be 
 test_preds_raw, test_labels , _  = trainer.predict(test_dataset)
 test_preds = np.argmax(test_preds_raw, axis=1)
 
-# write the result to a existing dataframe (copied from /data/scro4316/thesis/paper3/benchmarkset_map_0917.csv)
-df = pd.read_csv("/data/scro4316/thesis/paper3/e_tools_lm/finetune_xml/raw_result_xml.csv")
+# write the result to a existing dataframe (copied from benchmarkset_map_0917.csv)
+df = pd.read_csv("e_tools_lm/finetune_xml/raw_result_xml.csv")
 df[f'pred_{foundation}_{output_col_name}'] = test_preds
 # save the result and replace the existing one
-df.to_csv(f"/data/scro4316/thesis/paper3/e_tools_lm/finetune_xml/raw_result_xml.csv", index=False)
+df.to_csv(f"e_tools_lm/finetune_xml/raw_result_xml.csv", index=False)
 print("Inference done and saved to raw_result_xml.csv")
