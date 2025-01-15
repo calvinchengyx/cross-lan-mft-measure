@@ -1,6 +1,6 @@
 # Evaluating Automated Approaches to Measure Moral Foundations in Non-English Discourse
 
-This is the repository for the paper "Evaluating Automated Approaches to Measure Moral Foundations in Non-English Discourse". It is currently under review at the ICWSM 2025. A Prepint of the paper can be found [here on Archive](https://xxx).
+This is the repository for the paper "Evaluating Automated Approaches to Measure Moral Foundations in Non-English Discourse". It is currently under review at the ICWSM 2025. A Prepint of the paper can be found [Coming Soon](https://xxx).
 
 ## General Takeaways
 1. LLMs is the best automated measurment for measuring moral foundations in non-English discourse, compared to translations, lexicon-based approaches, machine learning, and multilingual language models. 
